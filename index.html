@@ -1,0 +1,117 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>节拍器 -|简·陋|</title>
+    <link rel="icon" type="image/x-icon" href="../white-favicon.ico" />
+    <script type="text/javascript">
+        function bs(m) {
+            if (m == 0) {
+                bod.style.background = "#fee"
+                setTimeout(mbs, 60)
+            } else {
+                bod.style.background = "#5ee"
+                setTimeout(fmbs, 60)
+            }
+        }
+        function fmbs() {
+            bod.style.background = "#4bb"
+        }
+        function mbs() {
+            bod.style.background = "#faa"
+        }
+        function ok() {
+            if (bsd) {
+                clearInterval(btim)
+                for (t = 0; t < tim.length; t++) {
+                    clearTimeout(tim[t])
+                }
+            }
+            bsd = 1
+            n = 0;
+            y = ips.value;
+            z=ibpm.value
+            manyf(z)
+            btim = setInterval("manyf(" + z + ")", 60000)
+        }
+        function manyf(b) {
+            for (i = 0; i < b; i++) {
+                var o = 60000 * i / b
+                tim[i] = setTimeout(mai, o)
+            }
+        }
+        function mai() {
+            bs(n);
+            n++
+            ps.innerHTML = n;
+            if (n == y) n = 0
+        }
+        function cleanui() {
+            var hg = window.innerHeight / 30 + "px";
+            bod.style.fontSize = hg;
+            ibpm.style.fontSize = hg;
+            ips.style.fontSize = hg;
+            var names = document.getElementsByName("but")
+            for (q = 0; q < names.length; q++) {
+                names[q].style.fontSize = hg;
+            }
+        }
+        window.onload = function () {
+            bsd = 0;
+            tim = [];
+            cleanui()
+        }
+        window.onresize = cleanui();
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #bod {
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            background: #4bb;
+        }
+
+        input {
+            width: 4.5em;
+            border-style: soild;
+            border-color: #000;
+            border-width: 2px;
+        }
+
+        h1 {
+            display: inline;
+            font-size: 15em;
+            text-shadow: -3px 0 white, 0 3px white, 3px 0 white, 0 -3px white;
+        }
+
+        button {
+            background: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bod">
+        <h1 id="ps">&nbsp;</h1><br />
+        BPM<br />
+        <button onclick="ibpm.value=ibpm.value-10" name="but">-10</button>
+        <button onclick="ibpm.value=ibpm.value-1" name="but">-1</button>
+        <input id="ibpm" value=100 type="number" />
+        <button onclick="ibpm.value=ibpm.value-(-1)" name="but">+1</button>
+        <button onclick="ibpm.value=ibpm.value-(-10)" name="but">+10</button>
+        <br /><br />
+        拍数<br />
+        <button onclick="ips.value=ips.value-1" name="but">-1</button>
+        <input id="ips" value=4 type="number" />
+        <button onclick="ips.value=ips.value-(-1)" name="but">+1</button>
+        <br /><br />
+        <button onclick="ok()" name="but">开始打拍子</button>
+    </div>
+</body>
+
+</html>
